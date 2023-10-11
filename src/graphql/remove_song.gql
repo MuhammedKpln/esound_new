@@ -1,0 +1,7 @@
+mutation DeleteLibrarySongs($librarySongIds: [Ulong!]!) {
+  DeleteLibrarySongs(input: { librarySongIds: $librarySongIds }) {
+    error {
+      code
+    }
+  }
+}

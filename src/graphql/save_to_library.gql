@@ -1,0 +1,11 @@
+mutation AddLibrarySongs($songId: Int!) {
+  AddLibrarySong(input: { isOffline: false, songId: $songId }) {
+    error {
+      code
+    }
+    addedSong {
+      songId
+      librarySongId
+    }
+  }
+}

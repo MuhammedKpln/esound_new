@@ -1,0 +1,21 @@
+query {
+  GetLibrary {
+    tracks {
+      id
+      songLibraryId
+      type
+      trackId
+      thirdPartyTrackId
+      authorId
+      title
+      titleRename
+      isOffline
+      imageUrl
+      addedDate
+      listenDate
+      listenTimes
+      authorName
+      authorRename
+    }
+  }
+}

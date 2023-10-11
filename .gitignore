@@ -1,0 +1,7 @@
+data.db
+settings.yml
+oauth.json
+headers.json
+.vscode
+.venv
+__pycache__

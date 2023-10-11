@@ -1,0 +1,35 @@
+mutation SaveSong(
+  $authorId: String!
+  $authorImageUrl: String
+  $authorName: String!
+  $originalAuthorName: String!
+  $originalTitle: String!
+  $songImageUrl: String!
+  $songTitle: String!
+  $sourceId: String!
+  $thirdPartyTrackId: String
+  $type: ThirdPartyPlatformType!
+  $ytMusic: Int
+) {
+  SaveSong(
+    saveSongInput: {
+      authorId: $authorId
+      authorImageUrl: $authorImageUrl
+      authorName: $authorName
+      originalAuthorName: $originalAuthorName
+      originalTitle: $originalTitle
+      songImageUrl: $songImageUrl
+      songTitle: $songTitle
+      sourceId: $sourceId
+      thirdPartyTrackId: $thirdPartyTrackId
+      type: $type
+      ytMusic: $ytMusic
+    }
+  ) {
+    error {
+      code
+    }
+    songId
+    isNew
+  }
+}
