@@ -2,6 +2,7 @@ import asyncio
 import concurrent.futures as cf
 import threading
 from datetime import date
+from sys import exit
 from threading import Thread
 from typing import List, Optional
 

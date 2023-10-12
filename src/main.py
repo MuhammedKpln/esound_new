@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+from sys import exit
 
 import colorama
 from dependency_injector.wiring import Provide, inject
@@ -36,6 +37,7 @@ async def is_first_start() -> bool:
 
 async def check_youtube_auth():
     if not await path_exists(BASE_DIR / "oauth.json") and not await path_exists(BASE_DIR / "headers.json"):
+        print(BASE_DIR)
         Message.error(
             "Neither oauth.json or headers.json could be found. Please run python src/main.py -o.")
         exit(0)

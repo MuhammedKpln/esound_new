@@ -1,4 +1,5 @@
-from typing import Union
+from sys import exit
+from typing import Optional, Union
 
 import httpx
 
@@ -10,7 +11,7 @@ class Auth:
     def __init__(self):
         self.access_token: Union[str, None] = None
 
-    async def _login_esound(self, email: str, password: str) -> str:
+    async def _login_esound(self, email: str, password: str) -> Optional[str]:
         Message.info("Esound: Logging in..")
         async with httpx.AsyncClient() as client:
             data = {
@@ -26,8 +27,10 @@ class Auth:
             json = response.json()
 
             try:
-                Message.ok("Esound: Login succedeed.")
-                return json["access_token"]
+                if "access_token" in json:
+                    Message.ok("Esound: Login succedeed.")
+                    return json["access_token"]
+
             except KeyError:
                 Message.error(
                     f"{json['error']} - Please check your email and password inside {CONFIG_FILE}")
