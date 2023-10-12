@@ -3,7 +3,6 @@ from typing import Union
 import httpx
 
 from config import CONFIG_FILE
-from database.database import User
 from helpers import Message
 
 
@@ -35,15 +34,7 @@ class Auth:
                 exit()
 
     async def initialize(self, email: str, password: str):
-        user = User.select().first()
 
-        if user is None:
-            access_token = await self._login_esound(email, password)
+        access_token = await self._login_esound(email, password)
 
-            self.access_token = access_token
-            user = User(email=email, password=password,
-                        access_token=access_token)
-            user.save()
-        else:
-            user = User.select().first()
-            self.access_token = user.access_token
+        self.access_token = access_token

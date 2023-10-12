@@ -7,7 +7,8 @@ from ytmusicapi import setup_oauth
 
 from auth import Auth
 from config import CONFIG_FILE, Config, ConfigSections
-from database.database import initialize_database
+from database.database import Database
+from database.models.song import Song
 from di import Container
 from filemanager import path_exists
 from helpers import BASE_DIR, Message
@@ -41,9 +42,9 @@ async def check_youtube_auth():
 
 
 @inject
-async def initialize(auth: Auth = Provide[Container.auth], config: Config = Provide[Container.config]):
+async def initialize(auth: Auth = Provide[Container.auth], config: Config = Provide[Container.config], database: Database = Provide[Container.database]):
     await config.initialize()
-    initialize_database()
+    await database.init()
     await auth.initialize(email=config.config[ConfigSections.Esound.name]["email"], password=config.config[ConfigSections.Esound.name]["password"])
     await check_youtube_auth()
 
@@ -62,10 +63,14 @@ async def main():
     await migrate.run()
 
 
+@inject
+async def dispose(database: Database = Provide[Container.database]):
+    await database.connection.close()
+
 if __name__ == '__main__':
     container = Container()
     container.init_resources()
-    container.wire(modules=[__name__, GraphQLRequest, EsoundApi])
+    container.wire(modules=[__name__, GraphQLRequest, EsoundApi, Song])
 
     if args.oauth:
         setup_oauth('oauth.json')

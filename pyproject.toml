@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "esound-new"
+name = "yt2esound"
 version = "0.1.0"
 description = ""
 authors = ["Muhammed Kaplan <mmuhammedkaplan0@gmail.com>"]
@@ -14,9 +14,9 @@ gql = "^3.4.1"
 aiofiles = "^23.2.1"
 asyncio = "^3.4.3"
 pyyaml = "^6.0.1"
-peewee = "^3.16.3"
 dependency-injector = "^4.41.0"
 aiohttp = "^3.8.6"
+aiosqlite = "^0.19.0"
 
 
 [tool.poetry.group.dev.dependencies]
