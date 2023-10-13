@@ -7,9 +7,9 @@
 ## Installation
 
 ```bash
-git clone https://github.com/muhammedkpln/youtube-migrator.git
+git clone https://github.com/muhammedkpln/yt2esound.git
 
-cd youtube-migrator
+cd yt2esound
 
 poetry install
 
