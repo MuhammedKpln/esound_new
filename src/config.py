@@ -35,9 +35,6 @@ class Config:
                 "Esound": {
                     "email": "",
                     "password": ""
-                },
-                "YTMusic": {
-                    "Cookie": ""
                 }
             }
 
