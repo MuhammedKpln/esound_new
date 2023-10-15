@@ -70,12 +70,16 @@ async def dispose(database: Database = Provide[Container.database]):
     await database.connection.close()
 
 if __name__ == '__main__':
-    container = Container()
-    container.init_resources()
-    container.wire(modules=[__name__, GraphQLRequest, EsoundApi, Song])
+    try:
+        container = Container()
+        container.init_resources()
+        container.wire(modules=[__name__, GraphQLRequest, EsoundApi, Song])
 
-    if args.oauth:
-        setup_oauth('oauth.json')
-        exit()
+        if args.oauth:
+            setup_oauth('oauth.json')
+            exit()
 
-    asyncio.run(main())
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        asyncio.run(dispose())
+        Message.info("Exiting")
