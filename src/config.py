@@ -13,7 +13,6 @@ CONFIG = {}
 
 class ConfigSections(Enum):
     Esound = None
-    YTMusic = None
 
 
 class Config:
