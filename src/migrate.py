@@ -66,6 +66,8 @@ class Migrate:
                 "Could not fetch liked song, did you liked any songs?")
             exit(0)
 
+        ytMusicSongs.reverse()
+
         await self._fetch_last_item()
 
         if self._database_last_item_title:
@@ -81,16 +83,13 @@ class Migrate:
             exit(0)
 
         chunkedSongList: List[List[YoutubeLikedSongModel]] = list(
-            divide_chunks(ytMusicSongs, 20))
+            divide_chunks(ytMusicSongs, 15))
 
-        for key, i in enumerate(chunkedSongList):
+        for i in chunkedSongList:
             await self._run(i)
-
-            if key == len(chunkedSongList) - 1:
-                if not await self._if_already_in_library(song_title=i[len(i)-1]["title"]):
-                    Message.ok(
-                        "Sleeping for 10 seconds to not hitting Too Max Requests.")
-                    await asyncio.sleep(10)
+            Message.ok(
+                "Sleeping for 10 seconds to not hitting Too Max Requests.")
+            await asyncio.sleep(10)
 
         Message.info("Finished migration, bye...")
         await self.dispose()
@@ -115,3 +114,4 @@ class Migrate:
                 esound_song["esound_song_id"], esound_song["song_title"])
 
             Message.ok(f"Saved {song['title']}")
+            await asyncio.sleep(0.1)
